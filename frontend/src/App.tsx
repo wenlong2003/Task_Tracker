@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toggle } from "./components/toggle";
+import useLocalStorage from "use-local-storage";
 import { useTasks } from "./hooks/useTasks";
 import Navbar from "./components/Navbar";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
-import { Toggle } from "./components/toggle";
 import "./App.css";
 
 function SignIn() {
@@ -29,7 +30,9 @@ function Dashboard() {
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isDark, setIsDark] = useState(true);
+
+  const [isDark, setIsDark] = useState(false);
+
   const handleLogout = () => {
     setIsAuthenticated(false);
   }
@@ -37,7 +40,7 @@ function App() {
   return (
     <BrowserRouter>
     <div data-theme={isDark ? "dark" : "light"}>
-    <Toggle isChecked={isDark}handleChange={() => setIsDark(!isDark)}></Toggle>
+    <Toggle isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
     <Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout}></Navbar>
 
     <Routes>
