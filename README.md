@@ -160,4 +160,4 @@ Developed by Wenlong Cen
 
 This project was created as part of a software development project to demonstrate the design and implementation of a full-stack web application, including user authentication, API development, and database integration.
 
-The goal of the project is to showcase practical development skills while building a useful tool for task organi
+The goal of the project is to showcase practical development skills while building a useful tool for task organization.
