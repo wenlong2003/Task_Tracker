@@ -12,8 +12,8 @@ function Navbar ({ isAuthenticated, onLogout }: NavbarProps) {
 
       <ul className="nav-links">
         <li className="link"><Link to="/">Home</Link></li>
-        <li className="link"><Link to="/">Dashboard</Link></li>
-        <li className="link"><Link to="/">Calendar</Link></li>
+        <li className="link"><Link to="/dashboard">Dashboard</Link></li>
+        <li className="link"><Link to="/calendar">Calendar</Link></li>
 
         {!isAuthenticated ? (
           <>

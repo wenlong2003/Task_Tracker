@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toggle } from "./components/toggle";
 import Navbar from "./components/Navbar";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
-
+import CalendarView from "./components/CalendarView";
 import "./App.css";
 
 function App() {
@@ -25,9 +25,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
-
+          <Route path="/calendar" element={<CalendarView />} />
           <Route path="/signin" element={<SignIn setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/signup" element={<SignUp setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/signup" element={<SignUp setIsAuthenticated={setIsAuthenticated} />}/>
         </Routes>
       </div>
     </BrowserRouter>
