@@ -13,8 +13,11 @@ nav {
 .nav-links {
     display: flex;
     list-style: none;
-    align-items: center;
-    gap: 3rem;
+    justify-content: center; 
+    align-items: center;   
+    gap: 3rem;               
+    margin: 0;              
+    padding: 0;            
 }
 
 .link a{

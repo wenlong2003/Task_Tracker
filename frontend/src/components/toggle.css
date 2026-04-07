@@ -3,12 +3,9 @@
   top: 2rem;
   right: 2rem;
   display: flex;
-  align-items: center;
+  align-items: center; 
+  justify-content: center; 
   z-index: 1000;
-}
-
-.toggle {
-    visibility: hidden;
 }
 
 .toggle-container i {
@@ -16,9 +13,14 @@
   color: var(--primary-text-color); 
   cursor: pointer;
   transition: color 0.3s ease;
-  display: inline-block;
+  display: flex;      
+  align-items: center;    
+}
+
+.toggle {
+  visibility: hidden;
 }
 
 body.dark-theme .toggle-container i {
-    color: var(--primary-text-color);
+  color: var(--primary-text-color);
 }

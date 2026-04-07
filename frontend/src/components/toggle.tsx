@@ -6,7 +6,7 @@ interface ToggleProps {
     isChecked: boolean;
 }
 
-export const Toggle: React.FC<ToggleProps> = ({ handleChange, isChecked }) => {
+function Toggle({ handleChange, isChecked }: ToggleProps) {
     return (
         <div className="toggle-container">
             <input
@@ -16,8 +16,11 @@ export const Toggle: React.FC<ToggleProps> = ({ handleChange, isChecked }) => {
                 onChange={handleChange}
                 checked={isChecked}
             />
-            <label htmlFor="check"><i className={isChecked ? "bi bi-moon-stars-fill" : "bi bi-brightness-high-fill"}></i>
-      </label>
+            <label htmlFor="check">
+                <i className={isChecked ? "bi bi-moon-stars-fill" : "bi bi-brightness-high-fill"}></i>
+            </label>
         </div>
     );
-};
+}
+
+export default Toggle;
