@@ -1,7 +1,7 @@
 .toggle-container {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: var(--gap-global);
+  right: var(--gap-global);
   display: flex;
   align-items: center; 
   justify-content: center; 
@@ -19,8 +19,4 @@
 
 .toggle {
   visibility: hidden;
-}
-
-body.dark-theme .toggle-container i {
-  color: var(--primary-text-color);
 }

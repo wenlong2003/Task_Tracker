@@ -4,12 +4,12 @@ function Home() {
   return (
     <div className="home">
       
-      <section className="hero">
-        <h1 className="hero-title">Organize Your Life, Effortlessly</h1>
-        <p className="hero-subtitle">
+      <section className="header">
+        <h1 className="header-title">Organize Your Life, Effortlessly</h1>
+        <p className="header-subtitle">
           Manage tasks, stay focused, and boost productivity with your all-in-one task tracker.
         </p>
-        <button className="hero-btn">Get Started</button>
+        <button className="header-btn">Get Started</button>
       </section>
 
       <section className="features">
