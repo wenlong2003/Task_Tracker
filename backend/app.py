@@ -26,7 +26,10 @@ def get_tasks():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM tasks")
+    user_id = request.args.get("userId")
+    if not user_id:
+        return jsonify({"error": "userId is required"}), 400
+    cursor.execute("SELECT * FROM Tasks WHERE userId = %s", (user_id,))
     tasks = cursor.fetchall()
 
     cursor.close()
@@ -39,17 +42,22 @@ def get_tasks():
 def insert_task():
     data = request.get_json()
 
-    if not data or "name" not in data:
-        return jsonify({"error": "Task name is required"}), 400
+    required_fields = ["name", "startTime", "endTime", "userId"]
+
+    if not data or any(field not in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
 
     name = data["name"]
-    dueDate = data.get("dueDate")
+    startTime = data.get("startTime")
+    endTime = data.get("endTime")
+    description = data.get("description", "")
+    userId = data.get("userId")
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    sql = "INSERT INTO Tasks (name, dueDate) VALUES (%s, %s)"
-    cursor.execute(sql, (name, dueDate))
+    sql = "INSERT INTO Tasks (name, description, startTime, endTime, userId) VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(sql, (name, description, startTime, endTime, userId))
     conn.commit()
 
     cursor.close()
@@ -91,7 +99,7 @@ def register():
         
         # Get created user
         user_id = cursor.lastrowid
-        cursor.execute("SELECT id, username, email, createAt FROM users WHERE id = %s", (user_id,))
+        cursor.execute("SELECT id, username, email, createdAt FROM users WHERE id = %s", (user_id,))
         new_user = cursor.fetchone()
         
         cursor.close()

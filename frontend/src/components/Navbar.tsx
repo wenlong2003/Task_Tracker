@@ -25,10 +25,20 @@ function Navbar({ isAuthenticated, onLogout, isDark, toggleDark }: NavbarProps) 
             <li className="link"><Link to="signin" className="login-btn">Log In</Link></li>
           </>
         ) : (
-          <li className="link"><button className="logout-btn" onClick={onLogout}>Logout</button></li>
+          <li className="link">
+            <button
+              className="logout-btn"
+              onClick={() => {
+                localStorage.removeItem("userId");
+                localStorage.removeItem("username");
+                onLogout && onLogout();
+              }}
+            >
+              Logout
+            </button>
+          </li>
         )}
       </ul>
-
       <div className="toggle-wrapper">
         <Toggle handleChange={toggleDark} isChecked={isDark} />
       </div>

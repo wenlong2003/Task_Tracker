@@ -48,13 +48,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overscroll-behavior-y: none;
+    /* overscroll-behavior: none; */
     outline: none;
     border: none;
     font-family: "Poppins", sans-serif;
 }
 
-body {
-    color: var(--primary-text-color);
-    background-color: var(--primary-background-color);
+.sx-react-calendar-wrapper {
+  width: 1200px;
+  max-width: 100vw;
+  height: 800px;
+  max-height: 90vh;
 }

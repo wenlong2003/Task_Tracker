@@ -28,6 +28,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* Dashboard redirect to home temporarily */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/calendar" element={<CalendarView />} />
           <Route path="/signin" element={<SignIn setIsAuthenticated={setIsAuthenticated} />} />

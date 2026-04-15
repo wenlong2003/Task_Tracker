@@ -35,6 +35,9 @@ const SignUp = ({ setIsAuthenticated }: SignUpProps) => {
 
       if (!res.ok) throw new Error(data.error);
 
+      localStorage.setItem("userId", data.user.id);
+      localStorage.setItem("username", data.user.username);
+
       setIsAuthenticated(true);
     } catch (err) {
       if (err instanceof Error) {

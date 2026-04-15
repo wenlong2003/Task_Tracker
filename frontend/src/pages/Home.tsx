@@ -15,7 +15,7 @@ function Home() {
         <div className="content">
           <section className="hero">
             <h1 className="title">Organize Your Life</h1>
-            <p className="subtitle">Manage tasks and stay productive with ease.</p>
+            <p className="subtitle">Manage efficiently your tasks, events, or important dates with ease</p>
             <button className="cta-btn">Get Started</button>
           </section>
         </div>
