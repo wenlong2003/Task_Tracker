@@ -10,7 +10,6 @@ function Dashboard() {
   const [description, setDescription] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [isAllDay, setIsAllDay] = useState(false); 
   const [deleteId, setDeleteId] = useState("");
   const [events, setEvents] = useState<any[]>([]);
 
@@ -137,11 +136,17 @@ function Dashboard() {
 
   return (
     <main className="dashboard-container">
-      {/* Left Column wrapper for Section and Article */}
+      {/* LEFT COLUMN */}
       <div className="content-left">
-        <section className="semantic-box">
+
+        {/* CREATE EVENT */}
+        <section className="container-create">
           <h1 className="dashboard-title">Create Event</h1>
-          <form className="event-form">
+
+          <form
+            className="event-form"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <input
               className="input"
               type="text"
@@ -195,9 +200,17 @@ function Dashboard() {
           </form>
         </section>
 
-        <article className="semantic-box">
+        {/* DELETE EVENT */}
+        <article className="container-delete">
           <h2 className="dashboard-title">Delete Event</h2>
-          <div className="event-form">
+
+          <form
+            className="event-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleDeleteEvent();
+            }}
+          >
             <input
               className="input"
               type="text"
@@ -206,20 +219,17 @@ function Dashboard() {
               onChange={(e) => setDeleteId(e.target.value)}
             />
 
-            <button
-              className="create-event-btn"
-              type="button"
-              onClick={handleDeleteEvent}
-            >
+            <button className="create-event-btn" type="submit">
               Delete Event
             </button>
-          </div>
+          </form>
         </article>
       </div>
 
-      {/* Right Column: Aside */}
-      <aside className="semantic-box aside-box">
-        <h2 className="dashboard-title">Your Events</h2>
+      {/* RIGHT COLUMN */}
+      <section className="container-events">
+        <h2 className="dashboard-title">Upcoming Events</h2>
+
         <div className="event-list">
           {events.length === 0 ? (
             <p>No events found</p>
@@ -241,7 +251,7 @@ function Dashboard() {
               ))
           )}
         </div>
-      </aside>
+      </section>
     </main>
   );
 }
