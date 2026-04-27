@@ -232,7 +232,7 @@ function Dashboard() {
 
         <div className="event-list">
           {events.length === 0 ? (
-            <p>No events found</p>
+            <p>No events schedule</p>
           ) : (
             [...events]
               .sort(
