@@ -13,18 +13,16 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   return (
     <div className={`sidebar-overlay ${isOpen ? "open" : ""}`} onClick={onClose}>
       <div className="sidebar" onClick={(e) => e.stopPropagation()}>
-        <button className="close-btn" onClick={onClose}>
-          ×
-        </button>
+        <button className="close-btn" onClick={onClose}><i className="bi bi-x-lg"></i></button>
 
         <div className="sidebar-header">
           <h3>Menu</h3>
         </div>
 
         <div className="sidebar-links">
-          <Link to="/" onClick={onClose}>Home</Link>
-          <Link to="/dashboard" onClick={onClose}>Dashboard</Link>
-          <Link to="/calendar" onClick={onClose}>Calendar</Link>
+          <Link to="/" onClick={onClose}><i className="bi bi-house"></i>Home</Link>
+          <Link to="/dashboard" onClick={onClose}><i className="bi bi-window-sidebar"></i> Dashboard</Link>
+          <Link to="/calendar" onClick={onClose}><i className="bi bi-calendar3"></i> Calendar</Link>
         </div>
 
         <hr />
@@ -32,8 +30,8 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="sidebar-section">
           {!isAuthenticated ? (
             <div className="auth-links">
-              <Link to="/signin" onClick={onClose}>Sign In</Link>
-              <Link to="/signup" onClick={onClose}>Sign Up</Link>
+              <Link to="/signin" onClick={onClose}><i className="bi bi-box-arrow-in-right"></i> Sign In</Link>
+              <Link to="/signup" onClick={onClose}><i className="bi bi-box-arrow-in-left"></i> Sign Up</Link>
             </div>
           ) : (
             <>

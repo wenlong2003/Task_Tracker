@@ -16,7 +16,7 @@ function Navbar({ isDark, toggleDark, onOpenSidebar }: NavbarProps) {
 
   return (
     <nav>
-      <button className="sidebar-btn" onClick={onOpenSidebar}> ☰ </button>
+      <button className="sidebar-btn" onClick={onOpenSidebar}> <i className="bi bi-list"></i></button>
 
       <ul className="nav-links">
         <li className="link"><Link to="/">Home</Link></li>

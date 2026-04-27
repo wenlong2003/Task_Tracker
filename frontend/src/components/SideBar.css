@@ -64,6 +64,11 @@
   position: relative;
 }
 
+.sidebar-links i, .auth-links i {
+  padding: 1rem;
+  font-size: 1.4rem;
+}
+
 .sidebar-links a::before,
 .auth-links a::before {
   content: "";

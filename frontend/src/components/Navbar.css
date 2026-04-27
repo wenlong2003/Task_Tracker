@@ -24,10 +24,19 @@ nav {
 
 .sidebar-btn {
   position: absolute;
-  font-size: 1.7rem;
   color: var(--primary-text-color);
-  background-color: var(--primary-background-color);
+  background-color: transparent;
   left: 2%;
+}
+
+.sidebar-btn i {
+  color: var(--primary-text-color);
+  font-size: 1.6rem;
+}
+
+.sidebar-btn i:hover {
+  transition: all 0.3s ease;
+  color: rgba(128, 128, 128, 0.8);
 }
 
 .link a{

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./Dashboard.css";
 
@@ -10,7 +10,9 @@ function Dashboard() {
   const [description, setDescription] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [isAllDay, setIsAllDay] = useState(false);
+  const [isAllDay, setIsAllDay] = useState(false); 
+  const [deleteId, setDeleteId] = useState("");
+  const [events, setEvents] = useState<any[]>([]);
 
   const formatDateTime = (value: string) => {
     return value.replace("T", " ") + ":00";
@@ -62,6 +64,7 @@ function Dashboard() {
       });
 
       alert("Event created! Go to calendar to see it.");
+      fetchEvents();
 
       setTitle("");
       setDescription("");
@@ -75,63 +78,171 @@ function Dashboard() {
     }
   };
 
+  const handleDeleteEvent = async () => {
+    if (!token) {
+      alert("You are not authenticated. Please log in again.");
+      return;
+    }
+
+    if (!deleteId) {
+      alert("Please enter an event ID to delete");
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/tasks/${deleteId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to delete");
+      }
+
+      alert("Event deleted successfully");
+      setDeleteId("");
+      fetchEvents();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete event");
+    }
+  };
+
+  const fetchEvents = async () => {
+    if (!token) return;
+
+    try {
+      const res = await fetch("/api/tasks", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch events");
+      }
+
+      const data = await res.json();
+      setEvents(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, [token]);
+
   return (
-    <div className="dashboard-container">
-      <h1 className="dashboard-title">Create Event</h1>
+    <main className="dashboard-container">
+      {/* Left Column wrapper for Section and Article */}
+      <div className="content-left">
+        <section className="semantic-box">
+          <h1 className="dashboard-title">Create Event</h1>
+          <form className="event-form">
+            <input
+              className="input"
+              type="text"
+              placeholder="Event title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
 
-      <form className="event-form">
-        <input
-          className="input"
-          type="text"
-          placeholder="Event title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+            <textarea
+              className="input"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
 
-        <textarea
-          className="input"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+            <label>Start Time</label>
+            <input
+              className="input"
+              type="datetime-local"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            />
 
-        <label>Start Time</label>
-        <input
-          className="input"
-          type="datetime-local"
-          value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
-        />
+            <label>End Time</label>
+            <input
+              className="input"
+              type="datetime-local"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+            />
 
-        <label>End Time</label>
-        <input
-          className="input"
-          type="datetime-local"
-          value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
-        />
+            <div className="btn-group">
+              <button
+                className="create-event-btn"
+                type="button"
+                disabled={loading}
+                onClick={() => handleCreateEvent(false)}
+              >
+                {loading ? "Creating..." : "Timed Event"}
+              </button>
 
-        <div style={{ display: "flex", gap: "10px" }}>
-          <button
-            className="create-event-btn"
-            type="button"
-            disabled={loading}
-            onClick={() => handleCreateEvent(false)}
-          >
-            {loading ? "Creating..." : "Timed Event"}
-          </button>
+              <button
+                className="create-event-btn"
+                type="button"
+                disabled={loading}
+                onClick={() => handleCreateEvent(true)}
+              >
+                {loading ? "Creating..." : "All Day Event"}
+              </button>
+            </div>
+          </form>
+        </section>
 
-          <button
-            className="create-event-btn"
-            type="button"
-            disabled={loading}
-            onClick={() => handleCreateEvent(true)}
-          >
-            {loading ? "Creating..." : "All Day Event"}
-          </button>
+        <article className="semantic-box">
+          <h2 className="dashboard-title">Delete Event</h2>
+          <div className="event-form">
+            <input
+              className="input"
+              type="text"
+              placeholder="Enter Event ID"
+              value={deleteId}
+              onChange={(e) => setDeleteId(e.target.value)}
+            />
+
+            <button
+              className="create-event-btn"
+              type="button"
+              onClick={handleDeleteEvent}
+            >
+              Delete Event
+            </button>
+          </div>
+        </article>
+      </div>
+
+      {/* Right Column: Aside */}
+      <aside className="semantic-box aside-box">
+        <h2 className="dashboard-title">Your Events</h2>
+        <div className="event-list">
+          {events.length === 0 ? (
+            <p>No events found</p>
+          ) : (
+            [...events]
+              .sort(
+                (a, b) =>
+                  new Date(a.startTime).getTime() -
+                  new Date(b.startTime).getTime()
+              )
+              .map((event) => (
+                <div key={event.id} className="event-card">
+                  <strong>{event.name}</strong>
+                  <p>{event.description}</p>
+                  <small>
+                    {event.startTime} - {event.endTime}
+                  </small>
+                </div>
+              ))
+          )}
         </div>
-      </form>
-    </div>
+      </aside>
+    </main>
   );
 }
 
