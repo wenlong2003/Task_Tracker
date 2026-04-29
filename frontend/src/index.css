@@ -38,6 +38,18 @@
 
     /* Sidebar */
     --box-shadow-bar:rgba(0, 0, 0, 0.1);
+
+    /* Dashboard */
+    --dashboard-bg: linear-gradient(180deg, #f5f7fb, #eef2f7);
+    --container-color:rgba(255, 255, 255, 0.78);
+    --border-color: 1px solid rgba(229, 231, 235, 0.7);
+    --input-box-color: #fff;
+    --left-border: 4px solid rgba(59, 130, 246, 1);
+    --btn-color: rgba(45, 125, 254);
+    --btn-hover: rgba(43, 110, 255);
+    --border-hover: rgba(43, 110, 255);
+;
+
 }
 
 [data-theme="dark"] {
@@ -53,6 +65,21 @@
 
     /* Sidebar */
     --box-shadow-bar: rgba(255, 255, 255, 0.3);
+
+    /* Dashboard background */
+    --dashboard-bg: linear-gradient(180deg, #1e2128, #17191e);
+    --container-color: rgba(30, 30, 30, 0.78);
+    --border-color: 1px solid rgba(55, 65, 81, 0.7);
+    --input-box-color: #121212;
+    --left-border: 4px solid rgba(248, 113, 113, 0.8);
+    --btn-color: rgba(248, 113, 113);
+    --btn-hover: rgba(255, 97, 97);
+    --border-hover: rgba(255, 97, 97);
+
+    /* Exclusive */
+    --border-event:rgba(248, 113, 113, 0.8);
+
+
 }
 
 * {

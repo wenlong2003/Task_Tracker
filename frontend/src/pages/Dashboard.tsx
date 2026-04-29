@@ -199,31 +199,6 @@ function Dashboard() {
             </div>
           </form>
         </section>
-
-        {/* DELETE EVENT */}
-        <article className="container-delete">
-          <h2 className="dashboard-title">Delete Event</h2>
-
-          <form
-            className="event-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleDeleteEvent();
-            }}
-          >
-            <input
-              className="input"
-              type="text"
-              placeholder="Enter Event ID"
-              value={deleteId}
-              onChange={(e) => setDeleteId(e.target.value)}
-            />
-
-            <button className="create-event-btn" type="submit">
-              Delete Event
-            </button>
-          </form>
-        </article>
       </div>
 
       {/* RIGHT COLUMN */}
@@ -242,6 +217,45 @@ function Dashboard() {
               )
               .map((event) => (
                 <div key={event.id} className="event-card">
+                  <div className="event-card-header">
+                    <div className="event-actions">
+                      <button
+                        className="edit-btn"
+                        onClick={() => alert(`Edit event ${event.id} (implement later)`)}
+                      >
+                      <i className="bi bi-pencil-square editIcon"></i>
+                      </button>
+                      <button
+                        className="delete-btn"
+                        onClick={async () => {
+                          if (!token) {
+                            alert("You are not authenticated. Please log in again.");
+                            return;
+                          }
+
+                          try {
+                            const res = await fetch(`/api/tasks/${event.id}`, {
+                              method: "DELETE",
+                              headers: {
+                                Authorization: `Bearer ${token}`,
+                              },
+                            });
+
+                            if (!res.ok) throw new Error("Failed to delete");
+
+                            alert("Event deleted successfully");
+                            fetchEvents();
+                          } catch (err) {
+                            console.error(err);
+                            alert("Failed to delete event");
+                          }
+                        }}
+                      >
+                      <i className="bi bi-trash deleteIcon"></i>
+                      </button>
+                    </div>
+                  </div>
+
                   <strong>{event.name}</strong>
                   <p>{event.description}</p>
                   <small>

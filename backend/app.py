@@ -57,7 +57,13 @@ def get_tasks():
     cursor = conn.cursor(dictionary=True)
 
     user_id = request.user_id
-    cursor.execute("SELECT * FROM Tasks WHERE userId = %s", (user_id,))
+    cursor.execute("""
+        SELECT *,
+        CASE WHEN endTime < NOW() THEN 1 ELSE 0 END AS isExpired
+        FROM Tasks
+        WHERE userId = %s
+        ORDER BY endTime ASC
+    """, (user_id,))
     tasks = cursor.fetchall()
 
     cursor.close()
@@ -99,6 +105,33 @@ def insert_task():
     conn.close()
 
     return jsonify({"message": "Task inserted"}), 201
+
+
+# DELETE TASK (PROTECTED)
+@app.route("/api/tasks/<int:task_id>", methods=["DELETE"])
+@token_required
+def delete_task(task_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            "DELETE FROM Tasks WHERE id = %s AND userId = %s",
+            (task_id, request.user_id)
+        )
+        conn.commit()
+
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Task not found"}), 404
+
+        return jsonify({"message": "Task deleted"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+    finally:
+        cursor.close()
+        conn.close()
 
 
 # REGISTER

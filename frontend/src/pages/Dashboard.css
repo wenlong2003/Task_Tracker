@@ -1,13 +1,13 @@
 .dashboard-container {
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 500px;
   gap: 1.5rem;
   padding: 2rem 1.5rem;
   max-width: 100%;
-  margin: 0 auto;
+  margin: auto;
   min-height: 100vh;
   box-sizing: border-box;
-  background: linear-gradient(180deg, #f5f7fb, #eef2f7);
+  background: var(--dashboard-bg);
 }
 
 /* LEFT SIDE */
@@ -20,9 +20,9 @@
 .container-create,
 .container-delete,
 .container-events {
-  background: rgba(255, 255, 255, 0.78);
+  background: var(--container-color);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(229, 231, 235, 0.7);
+  border: var(--border-color);
   border-radius: 14px;
   padding: 1.25rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
@@ -31,25 +31,32 @@
 .dashboard-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--primary-text-color);
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }
 
-.event-form {
+.event-form{
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  color: var(--primary-text-color);
 }
+
 
 .input {
   padding: 0.7rem 0.8rem;
   border-radius: 8px;
-  border: 1px solid rgba(229, 231, 235, 0.7);
-  font-size: 0.9rem;
-  background: #ffffff;
+  border: var(--border-color);
+  font-size: 1rem;
+  background: var(--input-box-color);
   outline: none;
   transition: all 0.2s ease;
+  color: var(--secondary-text-color);
+}
+
+.input::placeholder {
+  color: var(--secondary-text-color);
 }
 
 .input:focus {
@@ -68,7 +75,7 @@
   padding: 0.7rem;
   border-radius: 8px;
   border: none;
-  background: #3b82f6;
+  background: var(--btn-color);
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;
@@ -76,7 +83,7 @@
 }
 
 .create-event-btn:hover {
-  background: #2563eb;
+  background: var(--btn-hover);
   transform: translateY(-2px);
 }
 
@@ -93,7 +100,7 @@
 .event-list {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1rem;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -116,21 +123,34 @@
 }
 
 .event-card {
-  background: #ffffff;
-  border: 1px solid #eef0f3;
-  border-left: 4px solid #3b82f6;
+  background: var(--container-color);
+  border: var(--border-color);
+  border-left: var(--left-border);
   border-radius: 10px;
   padding: 0.85rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  position: relative;
+  cursor: default;
+  color: var(--primary-text-color);
+}
+
+.event-card-header {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.event-actions {
+  display: flex;
+  gap: 0.4rem;
 }
 
 .event-card:hover {
   transform: translateY(-3px);
-  border-color: #3b82f6;
+  border-color: var(--border-hover);
   box-shadow: 0 10px 25px rgba(59, 130, 246, 0.12);
 }
 
@@ -142,24 +162,53 @@
 
 .event-card small {
   font-size: 0.8rem;
-  color: #6b7280;
+  color: var(--secondary-text-color);
 }
 
 .event-list p {
   text-align: center;
   padding: 1rem;
-  color: #6b7280;
+  color: var(--secondary-text-color);
   font-size: 0.9rem;
+}
+
+.edit-btn,
+.delete-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--primary-text-color);
+}
+
+.edit-btn:hover {
+  background: rgba(59, 130, 246, 1);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+  color: white;
+}
+
+.delete-btn:hover {
+  background: rgba(239, 68, 68, 1);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+  color: white;
+}
+
+.editIcon,
+.deleteIcon {
+  color: inherit;
+  font-size: 1.2rem;
 }
 
 @media (max-width: 768px) {
   .dashboard-container {
     grid-template-columns: 1fr;
     padding: 1.25rem;
-  }
-
-  .event-list {
-    max-height: 500px;
-    padding: 1rem;
   }
 }

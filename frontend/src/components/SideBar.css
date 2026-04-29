@@ -62,10 +62,12 @@
   padding: 8px 10px;
   border-radius: var(--border-radius);
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .sidebar-links i, .auth-links i {
-  padding: 1rem;
   font-size: 1.4rem;
 }
 
@@ -87,6 +89,7 @@
 .auth-links a:hover {
   transform: translateX(6px);
   box-shadow: 0 0 10px var(--box-shadow-bar);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .sidebar-links a:hover::before,
@@ -109,6 +112,7 @@
 .logout-btn:hover {
   transform: translateY(-2px);
   filter: brightness(1.1);
+  box-shadow: 0 0 10px var(--box-shadow-bar);
 }
 
 .settings-btn {
