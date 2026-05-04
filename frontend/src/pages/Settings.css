@@ -1,0 +1,121 @@
+.settings-page {
+  background-color: var(--bg-page); 
+  min-height: calc(100vh - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transition: background-color 0.3s ease; 
+}
+
+.settings-layout {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-card); 
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.settings-sidebar {
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  gap: 1.5rem;
+}
+
+.settings-sidebar button {
+  all: unset;
+  padding: 1.25rem 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+}
+
+.settings-sidebar button.active {
+  color: var(--accent-color);
+}
+
+.settings-sidebar button.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+.settings-content {
+  padding: 2rem;
+}
+
+.settings-content h2 {
+  color: var(--text-main);
+}
+
+.settings-content p {
+  color: var(--text-muted);
+}
+
+.settings-content input {
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-input);
+  color: var(--text-main);
+}
+
+.settings-content input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.settings-sidebar .logout-btn {
+  margin-left: auto;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  color: #ff5a5f;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-sidebar .logout-btn:hover {
+  background-color: rgba(255, 90, 95, 0.12);
+  color: #ff2d55;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 45, 85, 0.15);
+}
+
+.save-btn {
+  margin-top: 1.5rem;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+  background-color: var(--accent-hover, var(--accent-color));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.save-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./SignIn.css";
 
 const SignIn = () => {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -31,9 +33,14 @@ const SignIn = () => {
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) {
+        setError("Invalid username or password");
+        setLoading(false);
+        return;
+      }
 
       login(data.token, data.user);
+      navigate("/", { replace: true });
 
     } catch (err) {
       if (err instanceof Error) setError(err.message);

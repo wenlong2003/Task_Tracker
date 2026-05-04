@@ -243,6 +243,120 @@ def login():
         return jsonify({"error": str(e)}), 500
 
 
+# UPDATE USER (USERNAME / EMAIL)
+@app.route("/api/user", methods=["PUT"])
+@token_required
+def update_user():
+    data = request.get_json()
+
+    username = data.get("username")
+    email = data.get("email")
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            UPDATE Users
+            SET username = %s, email = %s
+            WHERE id = %s
+        """, (username, email, request.user_id))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return jsonify({"message": "User updated"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# CHANGE PASSWORD (PROTECTED)
+@app.route("/api/user/password", methods=["PUT"])
+@token_required
+def change_password():
+    data = request.get_json()
+
+    current_password = data.get("currentPassword")
+    new_password = data.get("newPassword")
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute(
+            "SELECT password FROM Users WHERE id = %s",
+            (request.user_id,)
+        )
+
+        user = cursor.fetchone()
+
+        if not user or not check_password_hash(user["password"], current_password):
+            cursor.close()
+            conn.close()
+            return jsonify({"error": "Current password is incorrect"}), 400
+
+        hashed = generate_password_hash(new_password)
+
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "UPDATE Users SET password = %s WHERE id = %s",
+            (hashed, request.user_id)
+        )
+
+        conn.commit()
+
+        # ensure update actually happened
+        if cursor.rowcount == 0:
+            cursor.close()
+            conn.close()
+            return jsonify({"error": "Password not updated"}), 500
+
+        cursor.close()
+        conn.close()
+
+        return jsonify({"message": "Password updated"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# DELETE USER ACCOUNT (PROTECTED)
+@app.route("/api/user", methods=["DELETE"])
+@token_required
+def delete_account():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # delete user's tasks first
+        cursor.execute(
+            "DELETE FROM Tasks WHERE userId = %s",
+            (request.user_id,)
+        )
+
+        # delete user account
+        cursor.execute(
+            "DELETE FROM Users WHERE id = %s",
+            (request.user_id,)
+        )
+
+        conn.commit()
+
+        if cursor.rowcount == 0:
+            cursor.close()
+            conn.close()
+            return jsonify({"error": "User not found"}), 404
+
+        cursor.close()
+        conn.close()
+
+        return jsonify({"message": "Account deleted"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 # RUN APP
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

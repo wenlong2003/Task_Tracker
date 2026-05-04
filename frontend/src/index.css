@@ -48,7 +48,18 @@
     --btn-color: rgba(45, 125, 254);
     --btn-hover: rgba(43, 110, 255);
     --border-hover: rgba(43, 110, 255);
-;
+
+    /* Settings Page */
+    --bg-page: #f0f2f5;
+    --bg-card: #ffffff;
+    --bg-input: #f6f8fa;
+    --border-color: #d0d7de;
+    --text-main: #1f2328;
+    --text-muted: #656d76;
+    --accent-color: #0969da; /* Blue */
+    --accent-soft: rgba(9, 105, 218, 0.1);
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+
 
 }
 
@@ -58,28 +69,35 @@
     --secondary-text-color: #aaa;
     --tertiary-text-color: #777;
     --accent-color: #396eff;
-    
+
     /* background color */
-    --primary-background-color: #121212;
+    --primary-background-color: #1a1a1a;
     --secondary-background-color: #1e1e1e;
 
     /* Sidebar */
-    --box-shadow-bar: rgba(255, 255, 255, 0.3);
+    --box-shadow-bar: rgba(255, 255, 255, 0.12);
 
     /* Dashboard background */
-    --dashboard-bg: linear-gradient(180deg, #1e2128, #17191e);
-    --container-color: rgba(30, 30, 30, 0.78);
-    --border-color: 1px solid rgba(55, 65, 81, 0.7);
-    --input-box-color: #121212;
+    --dashboard-bg: linear-gradient(180deg, #0f1115, #0a0c10);
+    --container-color: rgba(255, 255, 255, 0.04);
+    --border-color: 1px solid rgba(255, 255, 255, 0.08);
+    --input-box-color: #0f1115;
     --left-border: 4px solid rgba(248, 113, 113, 0.8);
     --btn-color: rgba(248, 113, 113);
     --btn-hover: rgba(255, 97, 97);
     --border-hover: rgba(255, 97, 97);
-
-    /* Exclusive */
     --border-event:rgba(248, 113, 113, 0.8);
 
-
+    /* Settings Page */
+    --bg-page: #0d1117;
+    --bg-card: #161b22;
+    --bg-input: #0d1117;
+    --border-color: #30363d;
+    --text-main: #e6edf3;
+    --text-muted: #848d97;
+    --accent-color: #2f81f7;
+    --accent-soft: rgba(47, 129, 247, 0.15);
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 * {

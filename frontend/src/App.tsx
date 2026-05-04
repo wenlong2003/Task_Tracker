@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import CalendarView from "./components/CalendarView";
 import Home from "./pages/Home";
+import Settings from "./pages/Settings";
 import "./App.css";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/calendar" element={<CalendarView />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
     </BrowserRouter>
