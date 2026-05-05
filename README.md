@@ -143,12 +143,11 @@ There are several planned improvements that could enhance the functionality and 
 Possible future features include:
 
 - Editing existing tasks
-- Deleting completed tasks
-- Task completion status tracking
-- Due dates and reminders
+- Deleting completed tasks ✅
+- Task completion status tracking ✅
 - Improved dashboard layout
-- Dark mode support
-- Enhanced task filtering and sorting
+- Dark mode support ✅
+- Enhanced task filtering and sorting ✅
 
 These improvements would make the application more powerful and flexible for users managing multiple tasks.
 
